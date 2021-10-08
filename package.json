@@ -1,0 +1,50 @@
+{
+	"name": "geosearch-demo",
+	"version": "0.0.9",
+	"description": "",
+	"scripts": {
+		"start": "parcel public/index.html",
+		"build": "parcel build public/index.html",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/YUUKIToriyama/geosearch-demo.git"
+	},
+	"keywords": [
+		"geography"
+	],
+	"author": "YUUKIToriyama",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/YUUKIToriyama/geosearch-demo/issues"
+	},
+	"homepage": "https://github.com/YUUKIToriyama/geosearch-demo#readme",
+	"devDependencies": {
+		"@types/react": "^17.0.27",
+		"@types/react-dom": "^17.0.9",
+		"parcel-bundler": "^1.12.5",
+		"sass": "^1.42.1",
+		"scss": "^0.2.4",
+		"typescript": "^4.4.3"
+	},
+	"dependencies": {
+		"@emotion/react": "^11.4.1",
+		"@emotion/styled": "^11.3.0",
+		"@material-ui/core": "^5.0.0-beta.5",
+		"@material-ui/icons": "^4.11.2",
+		"maplibre-gl": "^2.0.0-pre.1",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2"
+	},
+	"browserslist": {
+		"production": [
+			"last 3 firefox versions",
+			"last 3 chrome versions"
+		],
+		"development": [
+			"last 1 firefox version",
+			"last 1 chrome version"
+		]
+	}
+}
