@@ -1,5 +1,10 @@
 @import "maplibre-gl/dist/maplibre-gl.css";
 
+#faButton {
+	position: absolute;
+	bottom: 5%;
+	left: 5%;
+}
 
 #myMap {
 	width: 100%;

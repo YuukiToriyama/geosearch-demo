@@ -1,4 +1,11 @@
 import React from 'react';
+import {
+	Fab
+} from '@material-ui/core';
+import {
+	LocationSearching
+} from '@material-ui/icons';
+
 
 import '../public/style.scss';
 import maplibregl from 'maplibre-gl';
@@ -16,6 +23,12 @@ export const Map: React.FunctionComponent = () => {
 		map.addControl(new maplibregl.NavigationControl({}));
 	})
 	return (
-		<div id="myMap" ref={mapRef}></div>
+		<main>
+			<div id="myMap" ref={mapRef}></div>
+			<Fab variant="extended" id="faButton" >
+				<LocationSearching />
+				Search
+			</Fab>
+		</main>
 	)
 }
