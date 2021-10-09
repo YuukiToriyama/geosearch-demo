@@ -10,6 +10,7 @@ import {
 	Help,
 	Search
 } from '@material-ui/icons';
+import { SearchDialog } from './Search';
 
 export const Header: React.FunctionComponent = () => {
 	return (
@@ -30,15 +31,16 @@ export const Header: React.FunctionComponent = () => {
 					>
 						<Help />
 					</IconButton>
-					<IconButton
-						size="large"
-						aria-label="Search"
-						onClick={() => alert("search")}
-						color="inherit"
-					>
-						<Search />
-					</IconButton>
-
+					<SearchDialog>
+						<IconButton
+							size="large"
+							aria-label="Search"
+							onClick={() => alert("search")}
+							color="inherit"
+						>
+							<Search />
+						</IconButton>
+					</SearchDialog>
 				</Toolbar>
 			</AppBar>
 		</Box>
