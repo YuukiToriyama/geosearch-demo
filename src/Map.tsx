@@ -6,7 +6,8 @@ import {
 	LocationSearching
 } from '@material-ui/icons';
 
-import { SearchDialog, SearchResult } from './Search';
+import { SearchDialog } from './Search';
+import { GeoSearchUserData } from '@coex/geosearch/interface';
 
 import '../public/style.scss';
 import maplibregl from 'maplibre-gl';
@@ -16,17 +17,17 @@ import { metropolisList } from './utils';
 export const Map: React.FunctionComponent = () => {
 	const mapRef = React.useRef<HTMLDivElement>(null);
 	let map;
-	let onSearchResultSet = (args: SearchResult) => {
+	let onSearchResultSet = (args: GeoSearchUserData) => {
 		const popup = new maplibregl.Popup({})
-		popup.setHTML(`<h3>${args.label}</h3><h4>(${args.subLabel})</h4><p>${args.lat}, ${args.lng}</p>`);
+		popup.setHTML(`<h3>${args.suggestFirstRow}</h3><h4>(${args.suggestSecondRow})</h4><p>${args.latitude}, ${args.longitude}</p>`);
 		popup.setLngLat({
-			lat: args.lat,
-			lng: args.lng
+			lat: args.latitude,
+			lng: args.longitude
 		});
 		const marker = new maplibregl.Marker({});
 		marker.setLngLat({
-			lat: args.lat,
-			lng: args.lng
+			lat: args.latitude,
+			lng: args.longitude
 		});
 		marker.setPopup(popup);
 		marker.addTo(map);
