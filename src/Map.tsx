@@ -7,16 +7,17 @@ import {
 } from '@material-ui/icons';
 
 import { SearchDialog } from './Search';
-import { GeoSearchUserData } from '@coex/geosearch/interface';
+import { GeoSearchUserData, GeoSearchCountries } from '@coex/geosearch/interface';
 
 import '../public/style.scss';
 import maplibregl from 'maplibre-gl';
 
 import { metropolisList } from './utils';
+import Map from 'maplibre-gl/types/ui/map';
 
-export const Map: React.FunctionComponent = () => {
+export const MyMap: React.FunctionComponent = () => {
 	const mapRef = React.useRef<HTMLDivElement>(null);
-	let map;
+	let map: Map;
 	let onSearchResultSet = (args: GeoSearchUserData) => {
 		const popup = new maplibregl.Popup({})
 		popup.setHTML(`<h3>${args.suggestFirstRow}</h3><h4>(${args.suggestSecondRow})</h4><p>${args.latitude}, ${args.longitude}</p>`);
@@ -31,6 +32,14 @@ export const Map: React.FunctionComponent = () => {
 		});
 		marker.setPopup(popup);
 		marker.addTo(map);
+	};
+
+	const onCountrySelectionChanged = (country: GeoSearchCountries) => {
+		const latLng = metropolisList[country].location;
+		map.flyTo({
+			center: [latLng.lng, latLng.lat],
+			zoom: 9
+		});
 	};
 
 	React.useEffect(() => {
@@ -48,7 +57,7 @@ export const Map: React.FunctionComponent = () => {
 	return (
 		<main>
 			<div id="myMap" ref={mapRef}></div>
-			<SearchDialog onResultDataSet={onSearchResultSet}>
+			<SearchDialog onResultDataSet={onSearchResultSet} onCountrySelectionChanged={onCountrySelectionChanged}>
 				<Fab variant="extended" id="faButton">
 					<LocationSearching />
 					Search

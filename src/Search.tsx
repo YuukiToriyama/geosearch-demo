@@ -19,6 +19,7 @@ import { GeoSearchCountries, GeoSearchScope, GeoSearchUserData } from '@coex/geo
 interface SearchDialogProps {
 	children: React.ReactNode
 	onResultDataSet: (resultData: GeoSearchUserData) => void
+	onCountrySelectionChanged: (country: GeoSearchCountries) => void
 }
 
 export const SearchDialog = (props: SearchDialogProps) => {
@@ -54,6 +55,7 @@ export const SearchDialog = (props: SearchDialogProps) => {
 			setSnackbarOpen(true);
 		}
 	}
+
 	return (
 		<React.Fragment>
 			<div onClick={handleClickOpen}>
@@ -67,7 +69,10 @@ export const SearchDialog = (props: SearchDialogProps) => {
 						labelId="country-select-label"
 						label="Country"
 						value={searchArea}
-						onChange={event => setSearchArea(event.target.value as GeoSearchCountries)}
+						onChange={event => {
+							setSearchArea(event.target.value as GeoSearchCountries);
+							props.onCountrySelectionChanged(event.target.value as GeoSearchCountries);
+						}}
 					>
 						<MenuItem value={null}>🗺️ World</MenuItem>
 						<MenuItem value="cz">🇨🇿 Czechia</MenuItem>
