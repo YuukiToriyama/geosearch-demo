@@ -14,16 +14,12 @@ import {
 	TextField
 } from '@material-ui/core';
 import { GeoSearch } from '@coex/geosearch';
+import { GeoSearchCountries, GeoSearchScope, GeoSearchUserData } from '@coex/geosearch/interface';
 
-export interface SearchResult {
-	label: string
-	subLabel: string
-	lat: number
-	lng: number
-}
 interface SearchDialogProps {
 	children: React.ReactNode
-	onResultDataSet: (resultData: SearchResult) => void
+	onResultDataSet: (resultData: GeoSearchUserData) => void
+	onCountrySelectionChanged: (country: GeoSearchCountries) => void
 }
 
 export const SearchDialog = (props: SearchDialogProps) => {
@@ -36,12 +32,9 @@ export const SearchDialog = (props: SearchDialogProps) => {
 	};
 
 	const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-
-	type GeoSearchCountries = 'cz' | 'sk' | 'de' | 'us' | 'gb' | 'jp' | null;
 	const [searchArea, setSearchArea] = React.useState<GeoSearchCountries>(null);
 	type GeoSearchLanguages = 'en' | 'cs' | 'de' | 'pl' | 'sk' | 'ru' | 'es' | 'fr';
 	const [resultLanguage, setResultLanguage] = React.useState<GeoSearchLanguages>("en");
-	type GeoSearchScope = 'muni' | 'area' | 'pubt' | 'street' | null;
 	const [scope, setScope] = React.useState<GeoSearchScope>(null);
 	const [keyword, setKeyword] = React.useState("");
 
@@ -55,19 +48,14 @@ export const SearchDialog = (props: SearchDialogProps) => {
 		if (result.length > 0) {
 			console.log(result);
 			result.forEach(location => {
-				const locationData = location.userData;
-				props.onResultDataSet({
-					label: locationData.suggestFirstRow,
-					subLabel: locationData.suggestSecondRow,
-					lat: locationData.latitude,
-					lng: locationData.longitude
-				});
+				props.onResultDataSet(location.userData);
 			});
 			handleClickClose();
 		} else {
 			setSnackbarOpen(true);
 		}
 	}
+
 	return (
 		<React.Fragment>
 			<div onClick={handleClickOpen}>
@@ -81,7 +69,10 @@ export const SearchDialog = (props: SearchDialogProps) => {
 						labelId="country-select-label"
 						label="Country"
 						value={searchArea}
-						onChange={event => setSearchArea(event.target.value as GeoSearchCountries)}
+						onChange={event => {
+							setSearchArea(event.target.value as GeoSearchCountries);
+							props.onCountrySelectionChanged(event.target.value as GeoSearchCountries);
+						}}
 					>
 						<MenuItem value={null}>🗺️ World</MenuItem>
 						<MenuItem value="cz">🇨🇿 Czechia</MenuItem>
