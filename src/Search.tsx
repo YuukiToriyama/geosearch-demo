@@ -14,7 +14,6 @@ import {
 	TextField
 } from '@material-ui/core';
 import { GeoSearch } from '@coex/geosearch';
-import maplibregl from 'maplibre-gl';
 
 export interface SearchResult {
 	label: string
